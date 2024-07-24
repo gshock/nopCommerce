@@ -21,6 +21,9 @@
     @await Html.PartialAsync("_ExternalAuthentication.Errors")
     <div class="page-body">
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LoginTop, additionalData = Model })
+        <div class="external-authentication">
+            @await Component.InvokeAsync("ExternalMethods", "ExternalAuthentication")
+        </div>
         <div class="customer-blocks">
             @if (Model.RegistrationType == UserRegistrationType.Disabled)
             {
@@ -111,9 +114,9 @@
                 </form>
             </div>
         </div>
-        <div class="external-authentication">
+        @* <div class="external-authentication">
             @await Component.InvokeAsync(typeof(ExternalMethodsViewComponent), "ExternalAuthentication")
-        </div>
+        </div> *@
         @await Component.InvokeAsync(typeof(TopicBlockViewComponent), new { systemName = "LoginRegistrationInfo" })
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LoginBottom, additionalData = Model })
     </div>

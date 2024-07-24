@@ -27,7 +27,8 @@
                 }
             </ul>
         </div>
-        <div class="footer-block customer-service">
+
+        @* <div class="footer-block customer-service">
             <div class="title">
                 <strong>@T("Footer.CustomerService")</strong>
             </div>
@@ -69,7 +70,8 @@
                     <li><a href="@Url.RouteUrl("CheckGiftCardBalance")">@T("CheckGiftCardBalance")</a></li>
                 }
             </ul>
-        </div>
+        </div> *@
+
         <div class="footer-block my-account">
             <div class="title">
                 <strong>@T("Footer.MyAccount")</strong>
@@ -111,6 +113,11 @@
                     <strong>@T("Footer.FollowUs")</strong>
                 </div>
                 @await Component.InvokeAsync(typeof(SocialButtonsViewComponent))
+            </div>
+            <div class="business">
+                <ul class="networks">
+                    <li class="atc"><a href="http://www.atctech.co" target="_blank">@T("Footer.FollowUs.AtcTech")</a></li>
+                </ul>
             </div>
             @await Component.InvokeAsync(typeof(NewsletterBoxViewComponent))
         </div>

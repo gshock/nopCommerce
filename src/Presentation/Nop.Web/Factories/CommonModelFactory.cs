@@ -226,6 +226,48 @@ public partial class CommonModelFactory : ICommonModelFactory
         return model;
     }
 
+    public async Task<LogoWithRandomModel> PrepareLogoWithRandomModelAsync()
+    {
+        var store = await _storeContext.GetCurrentStoreAsync();
+
+        var model = new LogoWithRandomModel
+        {
+            StoreName = await _localizationService.GetLocalizedAsync(store, x => x.Name)
+        };
+
+        var workingThemeName = await _themeContext.GetWorkingThemeNameAsync();
+
+        var cacheKey = _staticCacheManager.PrepareKeyForDefaultCache(NopModelCacheDefaults.StoreLogoPath
+            , store, await _themeContext.GetWorkingThemeNameAsync(), _webHelper.IsCurrentConnectionSecured());
+        var pathBase = _httpContextAccessor.HttpContext.Request.PathBase.Value ?? string.Empty;
+        var storeLocation = _mediaSettings.UseAbsoluteImagePath ? _webHelper.GetStoreLocation() : $"{pathBase}/";
+        model.LogoPath = await _staticCacheManager.Get(cacheKey, async () =>
+        {
+            var logo = string.Empty;
+            var logoPictureId = _storeInformationSettings.LogoPictureId;
+            if (logoPictureId > 0)
+            {
+                logo = await _pictureService.GetPictureUrlAsync(logoPictureId, showDefaultPicture: false);
+            }
+
+            if (string.IsNullOrEmpty(logo))
+            {
+                //use default logo
+                logo = $"{storeLocation}Themes/{await _themeContext.GetWorkingThemeNameAsync()}/Content/images/logo.png";
+            }
+            return logo;
+        });
+
+        var files = _fileProvider.GetFiles($"Themes/{await _themeContext.GetWorkingThemeNameAsync()}/Content/random");
+        model.LogoArray = files.Select(f => f = $"{storeLocation}" + f.Replace("\\", "/")).ToArray();
+
+        //var logoArrayPath = $"{storeLocation}Themes/{_themeContext.WorkingThemeName}/Content/random/";
+        model.LogoArrayPath = $"{storeLocation}Themes/{await _themeContext.GetWorkingThemeNameAsync()}/Content/random";
+        //model.LogoArrayPath = $"{storeLocation}images/random";
+
+        return model;
+    }
+
     /// <summary>
     /// Prepare the language selector model
     /// </summary>

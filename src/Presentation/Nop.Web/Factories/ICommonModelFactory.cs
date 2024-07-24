@@ -17,6 +17,9 @@ public partial interface ICommonModelFactory
     /// </returns>
     Task<LogoModel> PrepareLogoModelAsync();
 
+
+    Task<LogoWithRandomModel> PrepareLogoWithRandomModelAsync();
+
     /// <summary>
     /// Prepare the language selector model
     /// </summary>

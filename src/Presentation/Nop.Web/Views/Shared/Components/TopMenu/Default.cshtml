@@ -49,6 +49,9 @@
 
 <ul class="top-menu notmobile">
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderMenuBefore, additionalData = Model })
+
+    <li><img src="~/images/atc/Torch.gif" alt="fire!" class="fire-img" /></li>
+
     @if (Model.DisplayHomepageMenuItem)
     {
         <li><a href="@Url.RouteUrl("Homepage")">@T("Homepage")</a></li>
@@ -94,6 +97,9 @@
     {
         <li><a href="@Url.RouteUrl("ContactUs")">@T("ContactUs")</a></li>
     }
+
+    <li><img src="~/images/atc/Torch.gif" alt="fire!" class="fire-img" /></li>
+    
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.HeaderMenuAfter, additionalData = Model })
 </ul>
 @{

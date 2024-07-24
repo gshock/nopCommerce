@@ -1,0 +1,38 @@
+﻿@model LogoWithRandomModel
+
+@functions{
+    public static void Shuffle(int[] array)
+    {
+        Random random = new Random();
+        for (int i = array.Length - 1; i > 0; i--)
+        {
+            int j = random.Next(i + 1);
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+}
+
+@{
+    int[] array = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
+    Shuffle(array);
+}
+
+<a href="@Url.RouteUrl("Homepage")">
+    <img title="" class="header-img" alt="@Model.StoreName" src="@Model.LogoArray[array[0]]">
+    <img title="" class="header-img" alt="@Model.StoreName" src="@Model.LogoArray[array[1]]">
+    <img title="" class="header-img" alt="@Model.StoreName" src="@Model.LogoArray[array[2]]">
+    <img title="" class="header-img" alt="@Model.StoreName" src="@Model.LogoArray[array[3]]">
+    <img title="" class="header-img" alt="@Model.StoreName" src="@Model.LogoArray[array[4]]">
+
+    @*<img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[5]]">
+
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[6]]">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[7]]">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[8]]">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[9]]">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[10]]">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[11]]">
+    <img title="" alt="@Model.StoreName" src="@Model.LogoArray[array[12]]">*@
+</a>
